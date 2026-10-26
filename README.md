@@ -61,17 +61,5 @@ El sistema se basa en el principio de **Coreografía de Microservicios**. Ningú
 4. **Monitor de SLA (CU3):** Evalúa constantemente el paso del tiempo frente a la promesa de entrega y emite alertas al tópico `alertas.sla`.
 5. **Next.js (Frontend):** Se conecta a MongoDB mediante *Change Streams* (Server-Sent Events) para reflejar los cambios en la pantalla en tiempo real sin recargar la página.
 
----
 
-## 🎭 Guía de la Demo (Para la Defensa)
 
-Para demostrar el cumplimiento del 100% de la rúbrica, seguí estos pasos con las pantallas abiertas:
-
-1. **Arranque:** Mostrá la terminal ejecutando `npm start` y abrí la *Torre de Control* para ver el flujo continuo de eventos.
-2. **Envío Feliz:** Desde el *Panel de Demo*, dispará un "Envío Feliz". Copiá el ID y buscalo en el *Tracking Público* para demostrar la proyección del ciclo de vida.
-3. **Ausente (Múltiples consumidores):** Dispará el escenario "Ausente". Entrá al *Detalle del Supervisor* y mostrá cómo, a partir de un solo evento de fallo, el sistema generó una Notificación y una Reprogramación en paralelo.
-4. **Riesgo de SLA (Demorado):** Dispará el escenario "Demorado". En la *Torre de Control*, mostrá cómo aparece la alerta roja (SIN SALIDA / VENCIDO) generada por el paso del tiempo.
-5. **Aislamiento (Resiliencia):** Detené el servicio de notificaciones (`Ctrl + C` en su terminal si lo corrés aparte, o detenelo en el código). Demostrá que el sistema sigue funcionando. Al reactivarlo, procesará los mensajes acumulados usando los *offsets* de Kafka.
-6. **Dead Letter Queue (DLQ):** Abrí una nueva terminal y ejecutá `node inyectar-invalido.js`. Mostrá en los logs cómo el evento malformado es desviado al tópico de errores (`envios.estados.dlq`) sin detener el flujo general.
-7. **Analítica:** Abrí el *Panel Analítico* para mostrar los agregados por zona y los motivos de fallos calculados al vuelo por el servicio analítico.
-8. **Reprocesamiento (CU4):** En una nueva terminal, ejecutá `node reprocesamiento.js`. Mostrá cómo un grupo nuevo de consumidores (`fromBeginning: true`) reconstruye datos históricos (tiempos en el hub) sin afectar a los servicios en vivo.
